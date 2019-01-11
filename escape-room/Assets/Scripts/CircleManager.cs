@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CircleManager : MonoBehaviour {
+    
 
-	// Use this for initialization
-	void Start () {
+        int i = 5;
+        int[] order = { 2, 1, 3, 1, 4 };
+        bool opened = false;
+        private Quaternion DoorOpen;
+        private Quaternion DoorClosed;
 
-		int i = 0;
-		int[] order = {2, 1, 3, 1, 4};
-		bool opened = false;
-		
-	}
 	
 	// Update is called once per frame
 	void Update () 
@@ -19,7 +18,12 @@ public class CircleManager : MonoBehaviour {
 		if (i == 5)
 		{
 			opened = true;
-		}	
+            GameObject Door = GameObject.Find("Kitchen Door");
+            DoorOpen = Door.transform.rotation = Quaternion.Euler(0, -90, 0);
+            DoorClosed = Door.transform.rotation;
+
+            Door.transform.rotation = Quaternion.Lerp(DoorClosed, DoorOpen, Time.deltaTime * 1);
+        }	
 	}
 
 	public void BluePressed() 
