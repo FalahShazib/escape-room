@@ -6,23 +6,36 @@ public class CircleManager : MonoBehaviour {
     
 
         int i = 5;
-        int[] order = { 2, 1, 3, 1, 4 };
+        int[] order = { 3, 1, 3, 1, 4 };
         bool opened = false;
         private Quaternion DoorOpen;
         private Quaternion DoorClosed;
 
-	
-	// Update is called once per frame
-	void Update () 
+    private static CircleManager instance = null;
+    public static CircleManager SharedInstance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = new CircleManager();
+            }
+            return instance;
+        }
+    }
+
+
+
+    // Update is called once per frame
+    void Update () 
 	{
-		if (i == 5)
+		if (i == 1)
 		{
 			opened = true;
             GameObject Door = GameObject.Find("Kitchen Door");
-            DoorOpen = Door.transform.rotation = Quaternion.Euler(0, -90, 0);
-            DoorClosed = Door.transform.rotation;
-
-            Door.transform.rotation = Quaternion.Lerp(DoorClosed, DoorOpen, Time.deltaTime * 1);
+            Door.transform.Translate(0, 10, 0);
+            Debug.Log("door opened!");
+            ++i;
         }	
 	}
 
